@@ -1,2 +1,2 @@
 # poly
-A robust API for compile-time and runtime polynomial operations. 4th project for the advanced C++ programming course.
+A robust API for compile-time and runtime polynomial operations. 4th project for the advanced C++ programming course at MIM UW.
