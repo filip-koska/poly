@@ -254,10 +254,12 @@ public:
         return N;
     }
 
+    // Trivial point evaluation of multivariate polynomial (no variables)
     constexpr auto at() const {
         return *this;
     }
 
+    // Evaluation of multivariate polynomial at given coordinates
     template <typename U, typename... Args>
     constexpr auto at(U const& x, Args const&... args) const {
         if constexpr (!detail::is_poly_v<T>)
@@ -266,11 +268,13 @@ public:
             return at_helper<0, U>(x).at(args...);
     }
 
+    // Evaluation of multivariate polynomial at coordinates stored in given array
     template <typename U, std::size_t M>
     constexpr auto at(std::array<U, M> const& arr) const {
         return at_array(arr, std::make_index_sequence<M>{});
     }
 
+    // Utility function representing a constant polynomial of more than one variable
     template <typename U, std::size_t M>
     constexpr friend poly<poly<U, M>, 1> const_poly(poly<U, M> const& rhs);
 
@@ -339,6 +343,7 @@ constexpr poly<poly<T, N>, 1> const_poly(poly<T, N> const& rhs) {
     return ret_val;
 }
 
+// Cross product of polynomials (all variables are distinct)
 template <typename T, typename U>
 constexpr auto cross(T const& lhs, U const& rhs) {
     using res_type = detail::cross_type_t<std::decay_t<decltype(lhs)>, std::decay_t<decltype(rhs)>>;
